@@ -1,4 +1,4 @@
-# Blocked Supplier Invoice Release Workflow
+# Blocked Supplier Invoice Release Workflow - teste
 
 n8n workflow triggered by Joule Agent to automatically process blocked supplier invoices end-to-end.
 
@@ -32,7 +32,7 @@ The business challenge maps to the Source to Pay E2E process. BPS-325 (Process s
 ## Fit Gap Analysis
 
 | Requirement (business) | Standard asset(s) found | API ORD ID | MCP Server ORD ID | MCP Server Version | Webhook API ORD ID | Gap? | Notes / assumptions |
-|---|---|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- | --- | --- |
 | Read blocked supplier invoices from S/4HANA | SAP S/4HANA Cloud Public/Private Edition — Supplier Invoice Processing | `sap.s4:apiResource:API_SUPPLIERINVOICE_PROCESS_SRV:v1` | — | — | — | No | Access via SAP MCP Client node in n8n |
 | Cross-reference PO details for block reason | SAP S/4HANA Cloud — Purchase Order Processing | `sap.s4:apiResource:CE_PURCHASEORDER_0001:v1` | — | — | — | No | Access via SAP MCP Client node in n8n |
 | Cross-reference Goods Receipt for block reason | SAP S/4HANA Cloud — Goods Receipt | `sap.s4:apiResource:SSPOPENITMGOODSRECEIPT_0001:v1` | — | — | — | No | Access via SAP MCP Client node in n8n |
@@ -44,12 +44,17 @@ The business challenge maps to the Source to Pay E2E process. BPS-325 (Process s
 
 ### Key Findings
 
-- SAP S/4HANA Cloud (Public and Private Edition) provides full standard coverage for supplier invoice processing (BPS-325) and purchase order processing (BPS-329).
-- All required n8n nodes are confirmed available on this instance: `CUSTOM.sapMcpClient`, `CUSTOM.sapAgent`, `CUSTOM.sapTaskCenter`, `webhook`, `switch`, `splitInBatches`, `respondToWebhook`.
-- No pre-built MCP server was found for the S/4HANA Supplier Invoice or Purchase Order APIs; all S/4HANA calls will be made via the SAP MCP Client n8n node.
-- The workflow follows the pattern: Webhook → SAP MCP Client (read) → Loop → SAP Agent (analyse) → SAP Task Center (HITL) → Switch (approve/reject) → SAP MCP Client (release).
-- Joule Agent acts as the entry point via a webhook call; the workflow responds via Respond to Webhook upon completion.
-- SAP Fieldglass and Ariba capabilities are excluded as the use case is focused on direct procurement invoice processing.
+-   SAP S/4HANA Cloud (Public and Private Edition) provides full standard coverage for supplier invoice processing (BPS-325) and purchase order processing (BPS-329).
+    
+-   All required n8n nodes are confirmed available on this instance: `CUSTOM.sapMcpClient`, `CUSTOM.sapAgent`, `CUSTOM.sapTaskCenter`, `webhook`, `switch`, `splitInBatches`, `respondToWebhook`.
+    
+-   No pre-built MCP server was found for the S/4HANA Supplier Invoice or Purchase Order APIs; all S/4HANA calls will be made via the SAP MCP Client n8n node.
+    
+-   The workflow follows the pattern: Webhook → SAP MCP Client (read) → Loop → SAP Agent (analyse) → SAP Task Center (HITL) → Switch (approve/reject) → SAP MCP Client (release).
+    
+-   Joule Agent acts as the entry point via a webhook call; the workflow responds via Respond to Webhook upon completion.
+    
+-   SAP Fieldglass and Ariba capabilities are excluded as the use case is focused on direct procurement invoice processing.
 
 ## Recommendations
 
@@ -68,4 +73,5 @@ An n8n workflow triggered by a Joule Agent webhook. For each blocked supplier in
 n8n Workflow
 
 #### Intent fit
+
 95%
