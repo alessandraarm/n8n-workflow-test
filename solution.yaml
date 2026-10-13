@@ -1,0 +1,10 @@
+apiVersion: solution.sap/v1
+kind: Solution
+
+metadata:
+  name: blocked-invoice-release-d0945
+  version: "1.0.0"
+  description: "n8n workflow triggered by Joule Agent to automate blocked supplier invoice analysis and release via SAP Task Center approval"
+
+assets:
+  - ref: ./assets/workflows/blocked-invoice-release-workflow/asset.yaml
